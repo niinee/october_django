@@ -1,7 +1,12 @@
+import os
+import sys
 
-from django.conf.urls import url
-from django.contrib import admin
+path = os.path.expanduser('~/october_django')
+if path not in sys.path:
+    sys.path.append(path)
 
-urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-]
+os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
+
+from django.core.wsgi import get_wsgi_application
+from django.contrib.staticfiles.handlers import StaticFilesHandler
+application = StaticFilesHandler(get_wsgi_application())
